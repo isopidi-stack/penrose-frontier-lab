@@ -123,7 +123,7 @@ def render_25_freedom_matrix_frame(
     draw.text((40, 32), f"omega^A + pi_A' Active | Tr(M_25) = {norm_full:+.3f}", fill=(200, 220, 255))
 
     draw.text((370, 14), "4-QN Incomplete State (Missing pi_A' = 0)", fill=(255, 110, 180))
-    draw.text((370, 32), f"20/25 Freedoms Lost | Coupling = {coupling_val:+.3f}", fill=(230, 190, 220))
+    draw.text((370, 32), f"16/25 Freedoms Lost | Spinor Tr = 0.000 (Lost: {coupling_val:+.3f})", fill=(230, 190, 220))
 
     draw.text(
         (175, 342),
@@ -158,3 +158,4 @@ def generate_sigma5_25_freedoms_gif(
 if __name__ == "__main__":
     saved = generate_sigma5_25_freedoms_gif()
     print(f"[SUCCESS] Generated 25-element SIGMA_5 proof GIF: {saved}")
+
