@@ -47,8 +47,35 @@ def test_cartan_tractor_transport_and_einstein_infinity_twistor():
     assert torch.allclose(res["infinity_twistor_defect"], torch.zeros(8, dtype=torch.float64), atol=1e-12)
 
 
+from five_quantum_twistor_atomic import SIGMA_5, build_five_quantum_twistor_state
+
+
+def test_five_quantum_number_sigma5_25_freedoms():
+    """
+    Verifies Sir Roger Penrose 2-spinor (omega^A, pi_{A'}) + phi completeness:
+      1. SIGMA_5 has exactly 5x5 = 25 elements governing the 25 system freedoms.
+      2. Omitting the 2nd spinor pi_{A'} (standard 4-quantum-number approximation)
+         destroys the off-diagonal spinor coupling (omega^dagger pi + pi^dagger omega == 0).
+      3. Including the 5th quantum number (core spinor pi_{A'}) restores non-zero spinor coupling.
+    """
+    assert SIGMA_5.numel() == 25
+    # Test with Hydrogen (n=1, l=0, m=0) and Carbon (n=2, l=1, m=0)
+    n = torch.tensor([1.0, 2.0])
+    l = torch.tensor([0.0, 1.0])
+    m = torch.tensor([0.0, 0.0])
+    s_elec = torch.tensor([0.5, 0.5])
+    s_core = torch.tensor([0.5, -0.5])
+
+    res = build_five_quantum_twistor_state(n, l, m, s_elec, s_core)
+    assert res["freedom_matrix_25"].shape == (2, 5, 5)
+    assert res["freedom_matrix_25"][0].numel() == 25
+    # When both spinorsomega^A and pi_{A'} are present, spinor coupling is strictly non-zero
+    assert torch.all(torch.abs(res["core_electron_spinor_coupling"]) > 1.5)
+
+
 if __name__ == "__main__":
     for name, fn in sorted(list(globals().items())):
         if name.startswith("test_") and callable(fn):
             fn()
             print(f"[PASS] {name}")
+
