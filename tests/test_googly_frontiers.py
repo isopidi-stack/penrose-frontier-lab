@@ -73,9 +73,21 @@ def test_five_quantum_number_sigma5_25_freedoms():
     assert torch.all(torch.abs(res["core_electron_spinor_coupling"]) > 1.5)
 
 
+from render_sigma5_25_freedoms_gif import render_25_freedom_matrix_frame
+
+
+def test_render_25_freedom_matrix_frame_valid():
+    """Verifies that the 25-element SIGMA_5 visual proof renderer produces a high-contrast RGB frame."""
+    frame = render_25_freedom_matrix_frame(0, total_frames=12)
+    assert frame.shape == (360, 680, 3)
+    assert frame.dtype.name == "uint8"
+    assert frame.max() > 200
+
+
 if __name__ == "__main__":
     for name, fn in sorted(list(globals().items())):
         if name.startswith("test_") and callable(fn):
             fn()
             print(f"[PASS] {name}")
+
 
