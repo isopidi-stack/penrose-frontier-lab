@@ -1,0 +1,10 @@
+﻿cff-version: 1.2.0
+message: "If you reference or evaluate this theoretical framework, please cite it as below."
+authors:
+  - family-names: "Sopidi"
+    given-names: "Ivan Nikolayevich"
+title: "Penrose Frontier Laboratory: Dual-Chiral Googly Transport & Non-Commutative Manifold Patching"
+version: "0.1.0-penrose-frontier"
+date-released: 2026-11-17
+url: "https://github.com/isopidi-stack/penrose-frontier-lab"
+license: "Proprietary"
